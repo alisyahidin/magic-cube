@@ -1,5 +1,5 @@
 import { useFrame } from "@react-three/fiber"
-import { forwardRef, useEffect, useImperativeHandle, useRef } from "react"
+import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef } from "react"
 import { MathUtils } from 'three'
 import Cube, { RubikRotation } from "./entity/cube"
 import Move from "./entity/move"
@@ -46,7 +46,7 @@ const Rubik = forwardRef<RubikRef, RubikProps>(({ size = 3, length = 1 }, ref) =
     }
   }
 
-  const rotate = (face: keyof RubikRotation, inversed: boolean = false, stepAngle = defaultStepAngle): Promise<void> => {
+  const rotate = useCallback((face: keyof RubikRotation, inversed: boolean = false, stepAngle = defaultStepAngle): Promise<void> => {
     if (moveRef.current) return Promise.resolve()
 
     return new Promise<void>(resolve => {
@@ -64,7 +64,7 @@ const Rubik = forwardRef<RubikRef, RubikProps>(({ size = 3, length = 1 }, ref) =
       })
 
     })
-  }
+  }, [])
 
   useImperativeHandle(ref, () => ({ rotate }))
 
@@ -76,7 +76,7 @@ const Rubik = forwardRef<RubikRef, RubikProps>(({ size = 3, length = 1 }, ref) =
 
     window.addEventListener('keypress', listenToKeyboard)
     return () => window.removeEventListener('keypress', listenToKeyboard)
-  }, [])
+  }, [rotate])
 
   useFrame(() => { if (moveRef.current) moveRef.current.run() })
 
@@ -106,4 +106,5 @@ const Rubik = forwardRef<RubikRef, RubikProps>(({ size = 3, length = 1 }, ref) =
   </group>
 })
 
+Rubik.displayName = 'Rubik'
 export default Rubik
