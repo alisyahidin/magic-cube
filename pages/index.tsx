@@ -43,27 +43,27 @@ const Home: NextPage = () => {
     <div className={styles['button-action']}>
       <div>
         <button onClick={() => rubik.current.rotate('U')} className="btn btn-sm btn-secondary">U</button>
-        <button onClick={() => rubik.current.rotate('U', true)} className="btn btn-sm btn-secondary">U'</button>
+        <button onClick={() => rubik.current.rotate('U', true)} className="btn btn-sm btn-secondary">U&apos;</button>
       </div>
       <div>
         <button onClick={() => rubik.current.rotate('F')} className="btn btn-sm btn-secondary">F</button>
-        <button onClick={() => rubik.current.rotate('F', true)} className="btn btn-sm btn-secondary">F'</button>
+        <button onClick={() => rubik.current.rotate('F', true)} className="btn btn-sm btn-secondary">F&apos;</button>
       </div>
       <div>
         <button onClick={() => rubik.current.rotate('L')} className="btn btn-sm btn-secondary">L</button>
-        <button onClick={() => rubik.current.rotate('L', true)} className="btn btn-sm btn-secondary">L'</button>
+        <button onClick={() => rubik.current.rotate('L', true)} className="btn btn-sm btn-secondary">L&apos;</button>
       </div>
       <div>
         <button onClick={() => rubik.current.rotate('D')} className="btn btn-sm btn-secondary">D</button>
-        <button onClick={() => rubik.current.rotate('D', true)} className="btn btn-sm btn-secondary">D'</button>
+        <button onClick={() => rubik.current.rotate('D', true)} className="btn btn-sm btn-secondary">D&apos;</button>
       </div>
       <div>
         <button onClick={() => rubik.current.rotate('B')} className="btn btn-sm btn-secondary">B</button>
-        <button onClick={() => rubik.current.rotate('B', true)} className="btn btn-sm btn-secondary">B'</button>
+        <button onClick={() => rubik.current.rotate('B', true)} className="btn btn-sm btn-secondary">B&apos;</button>
       </div>
       <div>
         <button onClick={() => rubik.current.rotate('R')} className="btn btn-sm btn-secondary">R</button>
-        <button onClick={() => rubik.current.rotate('R', true)} className="btn btn-sm btn-secondary">R'</button>
+        <button onClick={() => rubik.current.rotate('R', true)} className="btn btn-sm btn-secondary">R&apos;</button>
       </div>
     </div>
   </>)
