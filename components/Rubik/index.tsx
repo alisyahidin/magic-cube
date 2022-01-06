@@ -1,6 +1,7 @@
+import { Billboard, Text } from "@react-three/drei"
 import { useFrame } from "@react-three/fiber"
 import React, { forwardRef, useCallback, useEffect, useImperativeHandle, useRef } from "react"
-import { MathUtils } from 'three'
+import { Euler, MathUtils } from 'three'
 import Cube from "../Cube"
 import CubeEntity, { RubikRotation } from "./entity/cube"
 import Move from "./entity/move"
@@ -9,7 +10,6 @@ import rotatePieces from './state/rotate'
 
 export type RubikProps = {
   size?: number
-  length?: number
 }
 
 export type RubikRef = {
@@ -18,7 +18,7 @@ export type RubikRef = {
 
 const defaultStepAngle: number = 6
 
-const Rubik = forwardRef<RubikRef, RubikProps>(({ size = 3, length = 1 }, ref) => {
+const Rubik = forwardRef<RubikRef, RubikProps>(({ size = 3 }, ref) => {
   const rubik = useRef<THREE.Mesh>(null!)
   const moveRef = useRef<Move>()
 
@@ -69,26 +69,46 @@ const Rubik = forwardRef<RubikRef, RubikProps>(({ size = 3, length = 1 }, ref) =
 
   const offset = (-size / 2) + 0.5 - 1
 
-  return <group ref={rubik}>
-    {[...Array(size)].map((_, x) =>
-      [...Array(size)].map((_, y) =>
-        [...Array(size)].map((_, z) => (
-          <Cube
-            name={`${x}-${y}-${z}`}
-            key={`${x}-${y}-${z}`}
-            position={[(x + (x * 1) + offset) * length, (y + (y * 1) + offset) * length, (z + (z * 1) + offset) * length]}
-            faces={[
-              x === size - 1 ? 'right' : null,
-              x === 0 ? 'left' : null,
-              y === size - 1 ? 'up' : null,
-              y === 0 ? 'down' : null,
-              z === size - 1 ? 'front' : null,
-              z === 0 ? 'back' : null,
-            ]}
-          />
-        ))
-      )
-    )}
+  return <group>
+    <Text position={[0, 0, 4.5]} outlineColor={0x000} outlineWidth={0.025} fontSize={1}>
+      Front
+    </Text>
+    <Text position={[0, 0, -4.5]} rotation={new Euler(0, Math.PI, 0)} outlineColor={0x000} outlineWidth={0.025} fontSize={1}>
+      Back
+    </Text>
+    <Text position={[0, 4.5, 0]} rotation={new Euler(-Math.PI / 2, 0, 0)} outlineColor={0x000} outlineWidth={0.025} fontSize={1}>
+      Up
+    </Text>
+    <Text position={[0, -4.5, 0]} rotation={new Euler(Math.PI / 2, 0, 0)} outlineColor={0x000} outlineWidth={0.025} fontSize={1}>
+      Down
+    </Text>
+    <Text position={[4.5, 0, 0]} rotation={new Euler(0, Math.PI / 2, 0)} outlineColor={0x000} outlineWidth={0.025} fontSize={1}>
+      Right
+    </Text>
+    <Text position={[-4.5, 0, 0]} rotation={new Euler(0, -Math.PI / 2, 0)} outlineColor={0x000} outlineWidth={0.025} fontSize={1}>
+      Left
+    </Text>
+    <group ref={rubik}>
+      {[...Array(size)].map((_, x) =>
+        [...Array(size)].map((_, y) =>
+          [...Array(size)].map((_, z) => (
+            <Cube
+              name={`${x}-${y}-${z}`}
+              key={`${x}-${y}-${z}`}
+              position={[(x + (x * 1) + offset), (y + (y * 1) + offset), (z + (z * 1) + offset)]}
+              faces={[
+                x === size - 1 ? 'right' : null,
+                x === 0 ? 'left' : null,
+                y === size - 1 ? 'up' : null,
+                y === 0 ? 'down' : null,
+                z === size - 1 ? 'front' : null,
+                z === 0 ? 'back' : null,
+              ]}
+            />
+          ))
+        )
+      )}
+    </group >
   </group>
 })
 
