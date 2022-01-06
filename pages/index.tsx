@@ -21,9 +21,9 @@ const Home: NextPage = () => {
     <Head>
       <title>Magic Cube - Rubik</title>
     </Head>
-    <div className={`${styles['button-action']} d-flex justify-between top-4 h-10 w-full px-8`}>
+    <div className={`${styles['button-action']} top-8 h-10`}>
       <h1></h1>
-      <div className="form-control">
+      <div data-theme="dark" className="form-control">
         <label className="cursor-pointer label" >
           <span className="label-text mr-2">Show Label</span>
           <input type="checkbox" onChange={e => setWithLabel(e.target.checked)} checked={withLabel} className="toggle toggle-secondary" />
@@ -31,7 +31,7 @@ const Home: NextPage = () => {
       </div >
     </div >
     <div className="h-screen bg-gradient-radial from-gray-600 to-gray-900">
-      <Canvas camera={{ position: [-2, 2, 3] }} style={{ height: '100%' }}>
+      <Canvas camera={{ position: [-2, 2, 3] }} style={{ height: '90%' }}>
         <OrbitControls enablePan={false} zoomSpeed={0.3} maxDistance={16} minDistance={12} />
         <ambientLight />
         <pointLight color={0xFFF} position={[10, 10, 10]} />
@@ -42,28 +42,28 @@ const Home: NextPage = () => {
     </div>
     <div className={styles['button-action']}>
       <div>
-        <button onClick={() => rubik.current.rotate('U')} className="btn btn-sm btn-secondary">U</button>
-        <button onClick={() => rubik.current.rotate('U', true)} className="btn btn-sm btn-secondary">U&apos;</button>
+        <button onClick={() => rubik.current.rotate('U')} className="btn btn-secondary">U</button>
+        <button onClick={() => rubik.current.rotate('U', true)} className="btn btn-secondary">U&apos;</button>
       </div>
       <div>
-        <button onClick={() => rubik.current.rotate('F')} className="btn btn-sm btn-secondary">F</button>
-        <button onClick={() => rubik.current.rotate('F', true)} className="btn btn-sm btn-secondary">F&apos;</button>
+        <button onClick={() => rubik.current.rotate('F')} className="btn btn-secondary">F</button>
+        <button onClick={() => rubik.current.rotate('F', true)} className="btn btn-secondary">F&apos;</button>
       </div>
       <div>
-        <button onClick={() => rubik.current.rotate('L')} className="btn btn-sm btn-secondary">L</button>
-        <button onClick={() => rubik.current.rotate('L', true)} className="btn btn-sm btn-secondary">L&apos;</button>
+        <button onClick={() => rubik.current.rotate('L')} className="btn btn-secondary">L</button>
+        <button onClick={() => rubik.current.rotate('L', true)} className="btn btn-secondary">L&apos;</button>
       </div>
       <div>
-        <button onClick={() => rubik.current.rotate('D')} className="btn btn-sm btn-secondary">D</button>
-        <button onClick={() => rubik.current.rotate('D', true)} className="btn btn-sm btn-secondary">D&apos;</button>
+        <button onClick={() => rubik.current.rotate('D')} className="btn btn-secondary">D</button>
+        <button onClick={() => rubik.current.rotate('D', true)} className="btn btn-secondary">D&apos;</button>
       </div>
       <div>
-        <button onClick={() => rubik.current.rotate('B')} className="btn btn-sm btn-secondary">B</button>
-        <button onClick={() => rubik.current.rotate('B', true)} className="btn btn-sm btn-secondary">B&apos;</button>
+        <button onClick={() => rubik.current.rotate('B')} className="btn btn-secondary">B</button>
+        <button onClick={() => rubik.current.rotate('B', true)} className="btn btn-secondary">B&apos;</button>
       </div>
       <div>
-        <button onClick={() => rubik.current.rotate('R')} className="btn btn-sm btn-secondary">R</button>
-        <button onClick={() => rubik.current.rotate('R', true)} className="btn btn-sm btn-secondary">R&apos;</button>
+        <button onClick={() => rubik.current.rotate('R')} className="btn btn-secondary">R</button>
+        <button onClick={() => rubik.current.rotate('R', true)} className="btn btn-secondary">R&apos;</button>
       </div>
     </div>
   </>)
