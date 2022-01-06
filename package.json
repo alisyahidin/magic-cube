@@ -20,6 +20,7 @@
   "dependencies": {
     "@react-three/drei": "^8.3.1",
     "@react-three/fiber": "^7.0.24",
+    "daisyui": "^1.21.0",
     "lodash.noop": "^3.0.1",
     "next": "12.0.7",
     "react": "17.0.2",
