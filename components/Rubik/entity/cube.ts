@@ -31,8 +31,8 @@ export default class CubeEntity {
     D: { axis: CubeEntity.axis.Y },
     R: { axis: CubeEntity.axis.X },
     L: { axis: CubeEntity.axis.X },
-    // M: { axis: CubeEntity.axis.Y },
-    // S: { axis: CubeEntity.axis.X },
-    // E: { axis: CubeEntity.axis.Z },
+    // M: { axis: CubeEntity.axis.X },
+    // S: { axis: CubeEntity.axis.Z },
+    // E: { axis: CubeEntity.axis.Y },
   }
 }

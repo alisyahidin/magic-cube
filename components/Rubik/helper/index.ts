@@ -1,4 +1,6 @@
-import { Quaternion } from 'three'
+import { Object3D, Quaternion } from 'three'
+import { RubikRotation } from '../entity/cube'
+import state from '../state'
 
 // -------------- rotate box
 export function rotateAroundWorldAxis(
@@ -14,4 +16,12 @@ export function rotateAroundWorldAxis(
   object.position.sub(axisVector)
   object.position.applyQuaternion(quaternion)
   object.position.add(axisVector)
+}
+
+export function getBoxes(objects: Object3D[], face: keyof RubikRotation, except = false): Object3D[] {
+  const rotationPieces = Object.keys(state)
+    .filter(position => position.includes(face))
+    .map(key => state[key as keyof typeof state])
+
+  return objects.filter(cube => rotationPieces.includes(cube.name))
 }

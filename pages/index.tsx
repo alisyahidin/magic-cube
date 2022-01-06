@@ -11,7 +11,7 @@ const Home: NextPage = () => {
     </Head>
     <div className="h-full bg-gradient-radial from-gray-600 to-gray-900">
       <Canvas camera={{ position: [-2, 3, 3] }} style={{ height: '100vh' }}>
-        <OrbitControls enablePan={false} zoomSpeed={0.3} maxDistance={12} minDistance={10} />
+        <OrbitControls enablePan={false} zoomSpeed={0.3} maxDistance={17} minDistance={12} />
         <ambientLight />
         <pointLight color={0xFFF} position={[10, 10, 10]} />
         <Rubik />

@@ -30,6 +30,4 @@ const state = proxy({
   'C': '1-1-1',
 })
 
-
-
 export default state

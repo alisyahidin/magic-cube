@@ -4,8 +4,7 @@ import { MathUtils } from 'three'
 import Cube from "../Cube"
 import CubeEntity, { RubikRotation } from "./entity/cube"
 import Move from "./entity/move"
-import { rotateAroundWorldAxis } from "./helper"
-import state from './state'
+import { getBoxes, rotateAroundWorldAxis } from "./helper"
 import rotatePieces from './state/rotate'
 
 export type RubikProps = {
@@ -24,12 +23,7 @@ const Rubik = forwardRef<RubikRef, RubikProps>(({ size = 3, length = 1 }, ref) =
   const moveRef = useRef<Move>()
 
   const rotateBoxes = (face: keyof RubikRotation, targetAngle: number) => {
-    const rotationPieces = Object.keys(state)
-      .filter(position => position.includes(face))
-      .map(key => state[key as keyof typeof state])
-
-    const boxes = rubik.current.children.filter(cube => rotationPieces.includes(cube.name))
-
+    const boxes = getBoxes(rubik.current.children, face)
     for (let box of boxes) {
       rotateAroundWorldAxis(
         box,
