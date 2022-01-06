@@ -6,9 +6,25 @@
   display: flex;
   gap: 12px;
   z-index: 1;
+  overflow: auto;
+  max-width: 768px;
+  padding: 0 0.5rem;
 }
 
-.button-action div {
+.button-action--bottom {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 12px;
+  z-index: 1;
+  overflow: auto;
+  padding: 0 0.5rem;
+  max-width: 100%;
+}
+
+.button-action--bottom div {
   display: flex;
   flex-direction: column;
   gap: 12px;

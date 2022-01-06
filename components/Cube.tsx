@@ -1,7 +1,7 @@
+import { useGLTF } from '@react-three/drei'
+import { GroupProps } from '@react-three/fiber'
 import React, { useRef } from 'react'
 import { GLTF } from 'three-stdlib'
-import { GroupProps } from '@react-three/fiber'
-import { useGLTF } from '@react-three/drei'
 
 type DreiGLTF = GLTF & {
   nodes: Record<string, THREE.Mesh>

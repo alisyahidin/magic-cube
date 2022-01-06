@@ -8,7 +8,7 @@ import state from "./"
 // [:f :l] [:l :b] [:b :r] [:r :f]                          ; edges - middle
 // [:d :f] [:d :l] [:d :b] [:d :r]                          ; edges - bottom
 
-const fwdRing = ['U', 'F', 'L', 'D', 'B', 'R']
+export const fwdRing = ['U', 'F', 'L', 'D', 'B', 'R']
 
 const fwdRingOf = (face: keyof RubikRotation) => {
   const indexFace = fwdRing.indexOf(face)

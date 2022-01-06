@@ -1,4 +1,4 @@
-import { Billboard, Text } from "@react-three/drei"
+import { Text } from "@react-three/drei"
 import { useFrame } from "@react-three/fiber"
 import React, { forwardRef, useCallback, useEffect, useImperativeHandle, useRef } from "react"
 import { Euler, MathUtils } from 'three'

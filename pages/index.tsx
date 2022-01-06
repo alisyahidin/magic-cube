@@ -1,9 +1,11 @@
-import { Suspense, useRef, useState } from 'react'
-import type { NextPage } from 'next'
+import { Html, OrbitControls, useProgress } from '@react-three/drei'
 import { Canvas } from '@react-three/fiber'
-import { OrbitControls, useProgress, Html } from '@react-three/drei'
+import type { NextPage } from 'next'
 import Head from 'next/head'
+import { Suspense, useEffect, useRef, useState } from 'react'
 import Rubik, { RubikRef } from '../components/Rubik'
+import type { RubikRotation } from '../components/Rubik/entity/cube'
+import { fwdRing } from '../components/Rubik/state/rotate'
 import styles from '../styles/rubik.module.css'
 
 const Loader = () => {
@@ -13,20 +15,47 @@ const Loader = () => {
   </Html>
 }
 
+const random = (min: number, max: number): number => Math.floor(Math.random() * (max - min) + min)
+
 const Home: NextPage = () => {
   const rubik = useRef<RubikRef>(null!)
   const [withLabel, setWithLabel] = useState(false)
+  const [isScrambling, setIsScrambling] = useState(false)
+  const [scrumbleStep, setScrumbleStep] = useState<Array<keyof RubikRotation>>([])
+
+  const scramble = () => {
+    if (isScrambling) {
+      setScrumbleStep([])
+      setIsScrambling(false)
+      return
+    }
+    setIsScrambling(true)
+    setScrumbleStep([...new Array(random(10, 30))].map(() => fwdRing[random(0, fwdRing.length)] as keyof RubikRotation))
+  }
+
+  useEffect(() => {
+    const run = async () => {
+      for (let i = 0; i < scrumbleStep.length; i++) {
+        if (isScrambling) await rubik.current.rotate(scrumbleStep[i])
+      }
+      setScrumbleStep([])
+      setIsScrambling(false)
+    }
+    if (scrumbleStep.length > 0) run()
+  }, [scrumbleStep, isScrambling, rubik.current])
 
   return (<>
     <Head>
       <title>Magic Cube - Rubik</title>
     </Head>
-    <div className={`${styles['button-action']} top-8 h-10`}>
-      <h1></h1>
+    <div className={`${styles['button-action']} container justify-between items-center px-4 top-8 h-14`}>
+      <div>
+        <button onClick={scramble} className="btn md:btn-sm btn-secondary">{isScrambling ? 'Stop' : 'Scramble'}</button>
+      </div>
       <div data-theme="dark" className="form-control">
         <label className="cursor-pointer label" >
           <span className="label-text mr-2">Show Label</span>
-          <input type="checkbox" onChange={e => setWithLabel(e.target.checked)} checked={withLabel} className="toggle toggle-secondary" />
+          <input type="checkbox" onChange={e => setWithLabel(e.target.checked)} checked={withLabel} className="toggle toggle-secondary toggle-lg md:toggle-md" />
         </label>
       </div >
     </div >
@@ -40,30 +69,30 @@ const Home: NextPage = () => {
         </Suspense>
       </Canvas>
     </div>
-    <div className={styles['button-action']}>
+    <div className={styles['button-action--bottom']}>
       <div>
-        <button onClick={() => rubik.current.rotate('U')} className="btn btn-secondary">U</button>
-        <button onClick={() => rubik.current.rotate('U', true)} className="btn btn-secondary">U&apos;</button>
+        <button disabled={isScrambling} onClick={() => rubik.current.rotate('U')} className="btn md:btn-sm btn-secondary">U</button>
+        <button disabled={isScrambling} onClick={() => rubik.current.rotate('U', true)} className="btn md:btn-sm btn-secondary">U&apos;</button>
       </div>
       <div>
-        <button onClick={() => rubik.current.rotate('F')} className="btn btn-secondary">F</button>
-        <button onClick={() => rubik.current.rotate('F', true)} className="btn btn-secondary">F&apos;</button>
+        <button disabled={isScrambling} onClick={() => rubik.current.rotate('F')} className="btn md:btn-sm btn-secondary">F</button>
+        <button disabled={isScrambling} onClick={() => rubik.current.rotate('F', true)} className="btn md:btn-sm btn-secondary">F&apos;</button>
       </div>
       <div>
-        <button onClick={() => rubik.current.rotate('L')} className="btn btn-secondary">L</button>
-        <button onClick={() => rubik.current.rotate('L', true)} className="btn btn-secondary">L&apos;</button>
+        <button disabled={isScrambling} onClick={() => rubik.current.rotate('L')} className="btn md:btn-sm btn-secondary">L</button>
+        <button disabled={isScrambling} onClick={() => rubik.current.rotate('L', true)} className="btn md:btn-sm btn-secondary">L&apos;</button>
       </div>
       <div>
-        <button onClick={() => rubik.current.rotate('D')} className="btn btn-secondary">D</button>
-        <button onClick={() => rubik.current.rotate('D', true)} className="btn btn-secondary">D&apos;</button>
+        <button disabled={isScrambling} onClick={() => rubik.current.rotate('D')} className="btn md:btn-sm btn-secondary">D</button>
+        <button disabled={isScrambling} onClick={() => rubik.current.rotate('D', true)} className="btn md:btn-sm btn-secondary">D&apos;</button>
       </div>
       <div>
-        <button onClick={() => rubik.current.rotate('B')} className="btn btn-secondary">B</button>
-        <button onClick={() => rubik.current.rotate('B', true)} className="btn btn-secondary">B&apos;</button>
+        <button disabled={isScrambling} onClick={() => rubik.current.rotate('B')} className="btn md:btn-sm btn-secondary">B</button>
+        <button disabled={isScrambling} onClick={() => rubik.current.rotate('B', true)} className="btn md:btn-sm btn-secondary">B&apos;</button>
       </div>
       <div>
-        <button onClick={() => rubik.current.rotate('R')} className="btn btn-secondary">R</button>
-        <button onClick={() => rubik.current.rotate('R', true)} className="btn btn-secondary">R&apos;</button>
+        <button disabled={isScrambling} onClick={() => rubik.current.rotate('R')} className="btn md:btn-sm btn-secondary">R</button>
+        <button disabled={isScrambling} onClick={() => rubik.current.rotate('R', true)} className="btn md:btn-sm btn-secondary">R&apos;</button>
       </div>
     </div>
   </>)
