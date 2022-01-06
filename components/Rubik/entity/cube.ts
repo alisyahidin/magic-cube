@@ -1,5 +1,4 @@
 import { Vector3 } from "three"
-import rotate from "../state/rotate"
 
 export type RubikRotation = {
   F: { axis: THREE.Vector3 },
@@ -13,9 +12,7 @@ export type RubikRotation = {
   // E: { axis: THREE.Vector3 },
 }
 
-export default class Cube {
-  size: number
-
+export default class CubeEntity {
   static angles = {
     CLOCKWISE: 90,
     COUNTERCLOCKWISE: -90
@@ -28,20 +25,14 @@ export default class Cube {
   }
 
   static rotation: RubikRotation = {
-    F: { axis: Cube.axis.Z },
-    B: { axis: Cube.axis.Z },
-    U: { axis: Cube.axis.Y },
-    D: { axis: Cube.axis.Y },
-    R: { axis: Cube.axis.X },
-    L: { axis: Cube.axis.X },
-    // M: { axis: Cube.axis.Y },
-    // S: { axis: Cube.axis.X },
-    // E: { axis: Cube.axis.Z },
-  }
-
-  static rotate = rotate
-
-  constructor(size: number) {
-    this.size = size
+    F: { axis: CubeEntity.axis.Z },
+    B: { axis: CubeEntity.axis.Z },
+    U: { axis: CubeEntity.axis.Y },
+    D: { axis: CubeEntity.axis.Y },
+    R: { axis: CubeEntity.axis.X },
+    L: { axis: CubeEntity.axis.X },
+    // M: { axis: CubeEntity.axis.Y },
+    // S: { axis: CubeEntity.axis.X },
+    // E: { axis: CubeEntity.axis.Z },
   }
 }

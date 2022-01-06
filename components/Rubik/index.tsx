@@ -1,10 +1,12 @@
 import { useFrame } from "@react-three/fiber"
-import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef } from "react"
+import React, { forwardRef, useCallback, useEffect, useImperativeHandle, useRef } from "react"
 import { MathUtils } from 'three'
-import Cube, { RubikRotation } from "./entity/cube"
+import Cube from "../Cube"
+import CubeEntity, { RubikRotation } from "./entity/cube"
 import Move from "./entity/move"
 import { rotateAroundWorldAxis } from "./helper"
 import state from './state'
+import rotatePieces from './state/rotate'
 
 export type RubikProps = {
   size?: number
@@ -16,15 +18,6 @@ export type RubikRef = {
 }
 
 const defaultStepAngle: number = 6
-const colors = {
-  front: 0xFFFFFF,
-  back: 0xFFCC00,
-  up: 0xCC0000,
-  down: 0xEE6600,
-  right: 0x009922,
-  left: 0x2255DD,
-  netral: 0x000000
-}
 
 const Rubik = forwardRef<RubikRef, RubikProps>(({ size = 3, length = 1 }, ref) => {
   const rubik = useRef<THREE.Mesh>(null!)
@@ -40,7 +33,7 @@ const Rubik = forwardRef<RubikRef, RubikProps>(({ size = 3, length = 1 }, ref) =
     for (let box of boxes) {
       rotateAroundWorldAxis(
         box,
-        Cube.rotation[face].axis,
+        CubeEntity.rotation[face].axis,
         MathUtils.degToRad(-targetAngle)
       )
     }
@@ -53,7 +46,7 @@ const Rubik = forwardRef<RubikRef, RubikProps>(({ size = 3, length = 1 }, ref) =
       moveRef.current = new Move(face, ['B', 'L', 'D'].includes(face) ? !inversed : inversed, stepAngle)
 
       moveRef.current.onComplete(() => {
-        Cube.rotate(face, inversed)
+        rotatePieces(face, inversed)
         moveRef.current = undefined
         resolve()
       })
@@ -71,7 +64,7 @@ const Rubik = forwardRef<RubikRef, RubikProps>(({ size = 3, length = 1 }, ref) =
   useEffect(() => {
     const listenToKeyboard = (e: KeyboardEvent) => {
       const key = e.key.toUpperCase()
-      if (Object.keys(Cube.rotation).includes(key)) rotate(key as keyof RubikRotation)
+      if (Object.keys(CubeEntity.rotation).includes(key)) rotate(key as keyof RubikRotation)
     }
 
     window.addEventListener('keypress', listenToKeyboard)
@@ -80,26 +73,25 @@ const Rubik = forwardRef<RubikRef, RubikProps>(({ size = 3, length = 1 }, ref) =
 
   useFrame(() => { if (moveRef.current) moveRef.current.run() })
 
-  const gap = length / 20
-  const offset = (-size / 2) + 0.5 - gap
+  const offset = (-size / 2) + 0.5 - 1
 
   return <group ref={rubik}>
     {[...Array(size)].map((_, x) =>
       [...Array(size)].map((_, y) =>
         [...Array(size)].map((_, z) => (
-          <mesh
+          <Cube
             name={`${x}-${y}-${z}`}
             key={`${x}-${y}-${z}`}
-            position={[(x + (x * gap) + offset) * length, (y + (y * gap) + offset) * length, (z + (z * gap) + offset) * length]}
-          >
-            <boxGeometry args={[length, length, length]} />
-            <meshStandardMaterial attachArray="material" color={x === size - 1 ? colors.right : colors.netral} />
-            <meshStandardMaterial attachArray="material" color={x === 0 ? colors.left : colors.netral} />
-            <meshStandardMaterial attachArray="material" color={y === size - 1 ? colors.up : colors.netral} />
-            <meshStandardMaterial attachArray="material" color={y === 0 ? colors.down : colors.netral} />
-            <meshStandardMaterial attachArray="material" color={z === size - 1 ? colors.front : colors.netral} />
-            <meshStandardMaterial attachArray="material" color={z === 0 ? colors.back : colors.netral} />
-          </mesh>
+            position={[(x + (x * 1) + offset) * length, (y + (y * 1) + offset) * length, (z + (z * 1) + offset) * length]}
+            faces={[
+              x === size - 1 ? 'right' : null,
+              x === 0 ? 'left' : null,
+              y === size - 1 ? 'up' : null,
+              y === 0 ? 'down' : null,
+              z === size - 1 ? 'front' : null,
+              z === 0 ? 'back' : null,
+            ]}
+          />
         ))
       )
     )}
