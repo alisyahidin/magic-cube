@@ -37,7 +37,7 @@ const Home: NextPage = () => {
       return
     } else {
       setIsScrambling(true)
-      const steps = [...new Array(random(10, 30))].map((_, index) => ({ ...faces[random(0, faces.length)], index }))
+      const steps = [...new Array(random(15, 30))].map((_, index) => ({ ...faces[random(0, faces.length)], index }))
       randomStep.current = steps
       setCurrentStep(steps[0])
     }
@@ -47,10 +47,16 @@ const Home: NextPage = () => {
     if (currentStep) {
       rubik.current.rotate(currentStep.face as keyof RubikRotation, currentStep.inversed)
         .then(() => {
-          if (isScrambling) setCurrentStep(randomStep.current.find(step => step.index === currentStep.index + 1))
+          const nextStep = randomStep.current.find(step => step.index === currentStep.index + 1)
+          if (isScrambling) setCurrentStep(nextStep)
+          if (!Boolean(nextStep)) setIsScrambling(false)
         })
     }
-  }, [rubik.current, randomStep.current, currentStep, isScrambling, setCurrentStep])
+  }, [rubik.current, randomStep.current, currentStep, isScrambling, setIsScrambling, setCurrentStep])
+
+  const progress = currentStep?.index
+    ? Math.ceil(((currentStep?.index + 1) / randomStep.current.length) * 100)
+    : 0
 
   return (<>
     <Head>
@@ -59,6 +65,9 @@ const Home: NextPage = () => {
     <div className={`${styles['button-action']} container justify-between items-center px-4 top-8 h-14`}>
       <div className="flex items-center">
         <button onClick={scramble} className="btn md:btn-sm btn-secondary w-28">{isScrambling ? 'Stop' : 'Scramble'}</button>
+        {isScrambling && <svg className="ml-4 stroke-secondary" height="30" width="30">
+          <circle style={{ transition: 'stroke-dashoffset 300ms linear' }} strokeDasharray={100} strokeDashoffset={Math.ceil(100 - ((progress / 100) * 82))} cx="15" cy="15" r="13" strokeWidth="2" fillOpacity="0" />
+        </svg>}
       </div>
       <div data-theme="dark" className="form-control">
         <input type="checkbox" onChange={e => setWithLabel(e.target.checked)} checked={withLabel} className="toggle toggle-secondary toggle-lg md:toggle-md" />
