@@ -60,7 +60,28 @@ const Home: NextPage = () => {
 
   return (<>
     <Head>
-      <title>Magic Cube - Rubik</title>
+      <title>Magic Cube - Rubik 3x3</title>
+      <meta charSet="utf-8" />
+      <meta name="viewport" content="width=device-width" />
+      <meta name="robots" content="index,follow" />
+      <meta name="googlebot" content="index,follow" />
+      <meta name="description" content="3D rubik cube 3x3" />
+      <meta property="og:title" content="Magic Cube - Rubik 3x3" />
+      <meta property="og:description" content="3D rubik cube 3x3" />
+      <meta property="og:url" content="http://magic-cube.vercel.app" />
+      <meta property="og:type" content="website" />
+      <meta property="og:image" content="https://magic-cube.vercel.app/thumbnail.png" />
+      <meta property="og:image:alt" content="Magic Cube - Rubik 3x3" />
+      <meta property="og:image:type" content="image/png" />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" />
+      <link rel="canonical" href="http://magic-cube.vercel.app" />
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:creator" content="@alisyahidin_" />
+      <meta name="twitter:site" content="@alisyahidin_" />
+      <meta name="twitter:title" content="Magic Cube - Rubik 3x3" />
+      <meta name="twitter:description" content="3D rubik cube 3x3" />
+      <meta name="twitter:image" content="https://magic-cube.vercel.app/thumbnail.png" />
     </Head>
     <div className={`${styles['button-action']} container justify-between items-center px-4 top-8 h-14`}>
       <div className="flex items-center">
@@ -70,7 +91,7 @@ const Home: NextPage = () => {
         </svg>}
       </div>
       <div data-theme="dark" className="form-control">
-        <input type="checkbox" onChange={e => setWithLabel(e.target.checked)} checked={withLabel} className="toggle toggle-secondary toggle-lg md:toggle-md" />
+        <input disabled={isScrambling} type="checkbox" onChange={e => setWithLabel(e.target.checked)} checked={withLabel} className="toggle toggle-secondary toggle-lg md:toggle-md" />
       </div>
     </div>
     <div className="h-screen bg-gradient-radial from-gray-600 to-gray-900">

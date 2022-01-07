@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://magic-cube.vercel.app/thumbnail.png
+
+# Sitemaps
+Sitemap: https://magic-cube.vercel.app/thumbnail.png/sitemap.xml
