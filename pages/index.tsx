@@ -25,7 +25,6 @@ const Home: NextPage = () => {
   const rubik = useRef<RubikRef>(null!)
   const randomStep = useRef<Array<Face & { index: number }>>([])
 
-  const [withLabel, setWithLabel] = useState(false)
   const [isScrambling, setIsScrambling] = useState(false)
   const [currentStep, setCurrentStep] = useState<Face & { index: number } | undefined>(undefined)
 
@@ -91,7 +90,7 @@ const Home: NextPage = () => {
         </svg>}
       </div>
       <div data-theme="dark" className="form-control">
-        <input disabled={isScrambling} type="checkbox" onChange={e => setWithLabel(e.target.checked)} checked={withLabel} className="toggle toggle-secondary toggle-lg md:toggle-md" />
+        <input type="checkbox" onChange={e => rubik.current.showLabel(e.target.checked)} className="toggle toggle-secondary toggle-lg md:toggle-md" />
       </div>
     </div>
     <div className="h-screen bg-gradient-radial from-gray-600 to-gray-900">
@@ -100,7 +99,7 @@ const Home: NextPage = () => {
         <ambientLight />
         <pointLight color={0xFFF} position={[10, 10, 10]} />
         <Suspense fallback={<Loader />}>
-          <Rubik ref={rubik} withFaceLabel={withLabel} />
+          <Rubik ref={rubik} />
         </Suspense>
       </Canvas>
     </div>
