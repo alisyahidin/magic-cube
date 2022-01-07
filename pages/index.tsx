@@ -64,9 +64,9 @@ const Home: NextPage = () => {
       <meta name="viewport" content="width=device-width" />
       <meta name="robots" content="index,follow" />
       <meta name="googlebot" content="index,follow" />
-      <meta name="description" content="3D rubik cube 3x3" />
+      <meta name="description" content="Online 3D rubik cube 3x3" />
       <meta property="og:title" content="Magic Cube - Rubik 3x3" />
-      <meta property="og:description" content="3D rubik cube 3x3" />
+      <meta property="og:description" content="Online 3D rubik cube 3x3" />
       <meta property="og:url" content="http://magic-cube.vercel.app" />
       <meta property="og:type" content="website" />
       <meta property="og:image" content="https://magic-cube.vercel.app/thumbnail.png" />
@@ -79,10 +79,10 @@ const Home: NextPage = () => {
       <meta name="twitter:creator" content="@alisyahidin_" />
       <meta name="twitter:site" content="@alisyahidin_" />
       <meta name="twitter:title" content="Magic Cube - Rubik 3x3" />
-      <meta name="twitter:description" content="3D rubik cube 3x3" />
+      <meta name="twitter:description" content="Online 3D rubik cube 3x3" />
       <meta name="twitter:image" content="https://magic-cube.vercel.app/thumbnail.png" />
     </Head>
-    <div className={`${styles['button-action']} container justify-between items-center px-4 top-8 h-14`}>
+    <div className={`${styles['button-action']} container justify-between items-center px-4 top-4 h-14`}>
       <div className="flex items-center">
         <button onClick={scramble} className="btn md:btn-sm btn-secondary w-28">{isScrambling ? 'Stop' : 'Scramble'}</button>
         {isScrambling && <svg className="ml-4 stroke-secondary" height="30" width="30">
