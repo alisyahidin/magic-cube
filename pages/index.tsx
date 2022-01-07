@@ -10,7 +10,7 @@ import styles from '../styles/rubik.module.css'
 const Loader = () => {
   const { progress } = useProgress()
   return <Html center>
-    <progress value={progress} />
+    <progress className="progress progress-secondary" value={progress} />
   </Html>
 }
 
@@ -90,7 +90,10 @@ const Home: NextPage = () => {
         </svg>}
       </div>
       <div data-theme="dark" className="form-control">
-        <input type="checkbox" onChange={e => rubik.current?.showLabel?.(e.target.checked)} className="toggle toggle-secondary toggle-lg md:toggle-md" />
+        <label className="flex items-center gap-4 font-mono">
+          Labels
+          <input type="checkbox" onChange={e => rubik.current?.showLabel?.(e.target.checked)} className="toggle toggle-secondary toggle-lg md:toggle-md" />
+        </label>
       </div>
     </div>
     <div className="h-screen bg-gradient-radial from-gray-600 to-gray-900">
