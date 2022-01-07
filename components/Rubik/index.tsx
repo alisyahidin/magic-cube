@@ -22,6 +22,7 @@ const defaultStepAngle: number = 6
 const Rubik = forwardRef<RubikRef, RubikProps>(({ size = 3, withFaceLabel = false }, ref) => {
   const rubik = useRef<THREE.Mesh>(null!)
   const moveRef = useRef<Move>()
+  const shiftKeyPressed = useRef<boolean>(false)
 
   const rotateBoxes = (face: keyof RubikRotation, targetAngle: number) => {
     const boxes = getBoxes(rubik.current.children, face)
@@ -59,11 +60,20 @@ const Rubik = forwardRef<RubikRef, RubikProps>(({ size = 3, withFaceLabel = fals
   useEffect(() => {
     const listenToKeyboard = (e: KeyboardEvent) => {
       const key = e.key.toUpperCase()
-      if (Object.keys(CubeEntity.rotation).includes(key)) rotate(key as keyof RubikRotation)
+      if (key === 'SHIFT') shiftKeyPressed.current = true
+      if (Object.keys(CubeEntity.rotation).includes(key)) rotate(key as keyof RubikRotation, shiftKeyPressed.current)
     }
 
-    window.addEventListener('keypress', listenToKeyboard)
-    return () => window.removeEventListener('keypress', listenToKeyboard)
+    window.addEventListener('keydown', listenToKeyboard)
+    window.addEventListener('keyup', e => {
+      if (e.key === 'Shift') shiftKeyPressed.current = false
+    })
+    return () => {
+      window.removeEventListener('keydown', listenToKeyboard)
+      window.removeEventListener('keyup', e => {
+        if (e.key === 'Shift') shiftKeyPressed.current = false
+      })
+    }
   }, [rotate])
 
   useFrame(() => { if (moveRef.current) moveRef.current.run() })
