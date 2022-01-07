@@ -29,7 +29,7 @@ const Home: NextPage = () => {
   const [currentStep, setCurrentStep] = useState<Face & { index: number } | undefined>(undefined)
 
   const scramble = () => {
-    if (isScrambling) {
+    if (isScrambling && rubik.current) {
       setCurrentStep(undefined)
       randomStep.current = []
       setIsScrambling(false)
@@ -90,7 +90,7 @@ const Home: NextPage = () => {
         </svg>}
       </div>
       <div data-theme="dark" className="form-control">
-        <input type="checkbox" onChange={e => rubik.current.showLabel(e.target.checked)} className="toggle toggle-secondary toggle-lg md:toggle-md" />
+        <input type="checkbox" onChange={e => rubik.current?.showLabel?.(e.target.checked)} className="toggle toggle-secondary toggle-lg md:toggle-md" />
       </div>
     </div>
     <div className="h-screen bg-gradient-radial from-gray-600 to-gray-900">
@@ -105,28 +105,28 @@ const Home: NextPage = () => {
     </div>
     <div className={styles['button-action--bottom']}>
       <div>
-        <button disabled={isScrambling} onClick={() => rubik.current.rotate('U')} className="btn md:btn-sm btn-secondary">U</button>
-        <button disabled={isScrambling} onClick={() => rubik.current.rotate('U', true)} className="btn md:btn-sm btn-secondary">U&apos;</button>
+        <button disabled={isScrambling} onClick={() => rubik.current?.rotate?.('U')} className="btn md:btn-sm btn-secondary">U</button>
+        <button disabled={isScrambling} onClick={() => rubik.current?.rotate?.('U', true)} className="btn md:btn-sm btn-secondary">U&apos;</button>
       </div>
       <div>
-        <button disabled={isScrambling} onClick={() => rubik.current.rotate('F')} className="btn md:btn-sm btn-secondary">F</button>
-        <button disabled={isScrambling} onClick={() => rubik.current.rotate('F', true)} className="btn md:btn-sm btn-secondary">F&apos;</button>
+        <button disabled={isScrambling} onClick={() => rubik.current?.rotate?.('F')} className="btn md:btn-sm btn-secondary">F</button>
+        <button disabled={isScrambling} onClick={() => rubik.current?.rotate?.('F', true)} className="btn md:btn-sm btn-secondary">F&apos;</button>
       </div>
       <div>
-        <button disabled={isScrambling} onClick={() => rubik.current.rotate('L')} className="btn md:btn-sm btn-secondary">L</button>
-        <button disabled={isScrambling} onClick={() => rubik.current.rotate('L', true)} className="btn md:btn-sm btn-secondary">L&apos;</button>
+        <button disabled={isScrambling} onClick={() => rubik.current?.rotate?.('L')} className="btn md:btn-sm btn-secondary">L</button>
+        <button disabled={isScrambling} onClick={() => rubik.current?.rotate?.('L', true)} className="btn md:btn-sm btn-secondary">L&apos;</button>
       </div>
       <div>
-        <button disabled={isScrambling} onClick={() => rubik.current.rotate('D')} className="btn md:btn-sm btn-secondary">D</button>
-        <button disabled={isScrambling} onClick={() => rubik.current.rotate('D', true)} className="btn md:btn-sm btn-secondary">D&apos;</button>
+        <button disabled={isScrambling} onClick={() => rubik.current?.rotate?.('D')} className="btn md:btn-sm btn-secondary">D</button>
+        <button disabled={isScrambling} onClick={() => rubik.current?.rotate?.('D', true)} className="btn md:btn-sm btn-secondary">D&apos;</button>
       </div>
       <div>
-        <button disabled={isScrambling} onClick={() => rubik.current.rotate('B')} className="btn md:btn-sm btn-secondary">B</button>
-        <button disabled={isScrambling} onClick={() => rubik.current.rotate('B', true)} className="btn md:btn-sm btn-secondary">B&apos;</button>
+        <button disabled={isScrambling} onClick={() => rubik.current?.rotate?.('B')} className="btn md:btn-sm btn-secondary">B</button>
+        <button disabled={isScrambling} onClick={() => rubik.current?.rotate?.('B', true)} className="btn md:btn-sm btn-secondary">B&apos;</button>
       </div>
       <div>
-        <button disabled={isScrambling} onClick={() => rubik.current.rotate('R')} className="btn md:btn-sm btn-secondary">R</button>
-        <button disabled={isScrambling} onClick={() => rubik.current.rotate('R', true)} className="btn md:btn-sm btn-secondary">R&apos;</button>
+        <button disabled={isScrambling} onClick={() => rubik.current?.rotate?.('R')} className="btn md:btn-sm btn-secondary">R</button>
+        <button disabled={isScrambling} onClick={() => rubik.current?.rotate?.('R', true)} className="btn md:btn-sm btn-secondary">R&apos;</button>
       </div>
     </div>
   </>)
