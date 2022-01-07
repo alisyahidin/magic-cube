@@ -1,8 +1,8 @@
+// https://github.com/rqbazan/react-three-fiber-101/blob/master/src/components/cube/helpers.ts
 import { Object3D, Quaternion } from 'three'
 import { RubikRotation } from '../entity/cube'
 import state from '../state'
 
-// -------------- rotate box
 export function rotateAroundWorldAxis(
   object: THREE.Object3D,
   axisVector: THREE.Vector3,

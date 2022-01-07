@@ -1,3 +1,4 @@
+// https://github.com/rqbazan/react-three-fiber-101/blob/master/src/entities/move.ts
 import noop from 'lodash.noop'
 import Cube, { RubikRotation } from './cube'
 
