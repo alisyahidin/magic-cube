@@ -5,7 +5,6 @@ import Head from 'next/head'
 import { Suspense, useEffect, useRef, useState } from 'react'
 import Rubik, { RubikRef } from '../components/Rubik'
 import type { RubikRotation } from '../components/Rubik/entity/cube'
-import { fwdRing } from '../components/Rubik/state/rotate'
 import styles from '../styles/rubik.module.css'
 
 const Loader = () => {
@@ -17,48 +16,54 @@ const Loader = () => {
 
 const random = (min: number, max: number): number => Math.floor(Math.random() * (max - min) + min)
 
+type Face = { face: string, inversed: boolean }
+
+const faces: Face[] = ['U', 'F', 'L', 'D', 'B', 'R']
+  .flatMap(face => [{ face, inversed: false }, { face, inversed: true }])
+
 const Home: NextPage = () => {
   const rubik = useRef<RubikRef>(null!)
+  const randomStep = useRef<Array<Face & { index: number }>>([])
+
   const [withLabel, setWithLabel] = useState(false)
   const [isScrambling, setIsScrambling] = useState(false)
-  const [scrumbleStep, setScrumbleStep] = useState<Array<keyof RubikRotation>>([])
+  const [currentStep, setCurrentStep] = useState<Face & { index: number } | undefined>(undefined)
 
   const scramble = () => {
     if (isScrambling) {
-      setScrumbleStep([])
+      setCurrentStep(undefined)
+      randomStep.current = []
       setIsScrambling(false)
       return
+    } else {
+      setIsScrambling(true)
+      const steps = [...new Array(random(10, 30))].map((_, index) => ({ ...faces[random(0, faces.length)], index }))
+      randomStep.current = steps
+      setCurrentStep(steps[0])
     }
-    setIsScrambling(true)
-    setScrumbleStep([...new Array(random(10, 30))].map(() => fwdRing[random(0, fwdRing.length)] as keyof RubikRotation))
   }
 
   useEffect(() => {
-    const run = async () => {
-      for (let i = 0; i < scrumbleStep.length; i++) {
-        if (isScrambling) await rubik.current.rotate(scrumbleStep[i])
-      }
-      setScrumbleStep([])
-      setIsScrambling(false)
+    if (currentStep) {
+      rubik.current.rotate(currentStep.face as keyof RubikRotation, currentStep.inversed)
+        .then(() => {
+          if (isScrambling) setCurrentStep(randomStep.current.find(step => step.index === currentStep.index + 1))
+        })
     }
-    if (scrumbleStep.length > 0) run()
-  }, [scrumbleStep, isScrambling, rubik.current])
+  }, [rubik.current, randomStep.current, currentStep, isScrambling, setCurrentStep])
 
   return (<>
     <Head>
       <title>Magic Cube - Rubik</title>
     </Head>
     <div className={`${styles['button-action']} container justify-between items-center px-4 top-8 h-14`}>
-      <div>
-        <button onClick={scramble} className="btn md:btn-sm btn-secondary">{isScrambling ? 'Stop' : 'Scramble'}</button>
+      <div className="flex items-center">
+        <button onClick={scramble} className="btn md:btn-sm btn-secondary w-28">{isScrambling ? 'Stop' : 'Scramble'}</button>
       </div>
       <div data-theme="dark" className="form-control">
-        <label className="cursor-pointer label" >
-          <span className="label-text mr-2">Show Label</span>
-          <input type="checkbox" onChange={e => setWithLabel(e.target.checked)} checked={withLabel} className="toggle toggle-secondary toggle-lg md:toggle-md" />
-        </label>
-      </div >
-    </div >
+        <input type="checkbox" onChange={e => setWithLabel(e.target.checked)} checked={withLabel} className="toggle toggle-secondary toggle-lg md:toggle-md" />
+      </div>
+    </div>
     <div className="h-screen bg-gradient-radial from-gray-600 to-gray-900">
       <Canvas camera={{ position: [-2, 2, 3] }} style={{ height: '90%' }}>
         <OrbitControls enablePan={false} zoomSpeed={0.3} maxDistance={16} minDistance={12} />
