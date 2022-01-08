@@ -97,12 +97,12 @@ const Home: NextPage = () => {
       </div>
     </div>
     <div className="h-screen bg-gradient-radial from-gray-600 to-gray-900">
-      <Canvas camera={{ position: [-2, 2, 3] }} style={{ height: '90%' }}>
+      <Canvas camera={{ position: [-2, 2, 3] }} style={{ height: '100%' }}>
         <OrbitControls enablePan={false} zoomSpeed={0.3} maxDistance={16} minDistance={12} />
         <ambientLight />
         <pointLight color={0xFFF} position={[10, 10, 10]} />
         <Suspense fallback={<Loader />}>
-          <Rubik ref={rubik} />
+          <Rubik position={[0, 1, 0]} ref={rubik} />
         </Suspense>
       </Canvas>
     </div>

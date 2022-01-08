@@ -1,5 +1,5 @@
 import { Text } from "@react-three/drei"
-import { useFrame } from "@react-three/fiber"
+import { GroupProps, useFrame } from "@react-three/fiber"
 import React, { forwardRef, useCallback, useEffect, useImperativeHandle, useRef, useState } from "react"
 import { Euler, MathUtils } from 'three'
 import Cube from "../Cube"
@@ -10,7 +10,7 @@ import rotatePieces from './state/rotate'
 
 export type RubikProps = {
   size?: number
-}
+} & GroupProps
 
 export type RubikRef = {
   rotate: (rotation: keyof RubikRotation, inversed?: boolean, stepAngle?: number) => Promise<void>,
@@ -19,7 +19,7 @@ export type RubikRef = {
 
 const defaultStepAngle: number = 6
 
-const Rubik = forwardRef<RubikRef, RubikProps>(({ size = 3 }, ref) => {
+const Rubik = forwardRef<RubikRef, RubikProps>(({ size = 3, ...props }, ref) => {
   const rubik = useRef<THREE.Mesh>(null!)
   const moveRef = useRef<Move>()
   const shiftKeyPressed = useRef<boolean>(false)
@@ -81,7 +81,7 @@ const Rubik = forwardRef<RubikRef, RubikProps>(({ size = 3 }, ref) => {
 
   const offset = (-size / 2) + 0.5 - 1
   const opacity = showLabel ? 1 : 0
-  return <group>
+  return <group {...props}>
     <Text fillOpacity={opacity} outlineOpacity={opacity} position={[0, 0, 4.5]} outlineColor={0x000} outlineWidth={0.025} fontSize={1.3}>
       Front
     </Text>
