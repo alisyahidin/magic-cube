@@ -10,7 +10,7 @@ import styles from '../styles/rubik.module.css'
 const Loader = () => {
   const { progress } = useProgress()
   return <Html center>
-    <progress className="progress progress-secondary" value={progress} />
+    <progress value={progress} />
   </Html>
 }
 
@@ -84,7 +84,7 @@ const Home: NextPage = () => {
     </Head>
     <div className={`${styles['button-action']} container justify-between items-center px-4 top-4 h-14`}>
       <div className="flex items-center">
-        <button onClick={scramble} className="btn md:btn-sm btn-secondary w-28">{isScrambling ? 'Stop' : 'Scramble'}</button>
+        <button aria-label="Scrumble" onClick={scramble} className="btn md:btn-sm btn-secondary w-28">{isScrambling ? 'Stop' : 'Scramble'}</button>
         {isScrambling && <svg className="ml-4 stroke-secondary" height="30" width="30">
           <circle style={{ transition: 'stroke-dashoffset 300ms linear' }} strokeDasharray={100} strokeDashoffset={Math.ceil(100 - ((progress / 100) * 82))} cx="15" cy="15" r="13" strokeWidth="2" fillOpacity="0" />
         </svg>}
@@ -92,7 +92,7 @@ const Home: NextPage = () => {
       <div data-theme="dark" className="form-control">
         <label className="flex items-center gap-4 font-mono">
           Labels
-          <input type="checkbox" onChange={e => rubik.current?.showLabel?.(e.target.checked)} className="toggle toggle-secondary toggle-lg md:toggle-md" />
+          <input aria-label="Toggle show labels" type="checkbox" onChange={e => rubik.current?.showLabel?.(e.target.checked)} className="toggle toggle-secondary toggle-lg md:toggle-md" />
         </label>
       </div>
     </div>
@@ -108,28 +108,28 @@ const Home: NextPage = () => {
     </div>
     <div className={styles['button-action--bottom']}>
       <div>
-        <button disabled={isScrambling} onClick={() => rubik.current?.rotate?.('U')} className="btn md:btn-sm btn-secondary">U</button>
-        <button disabled={isScrambling} onClick={() => rubik.current?.rotate?.('U', true)} className="btn md:btn-sm btn-secondary">U&apos;</button>
+        <button aria-label="Rotate Up" disabled={isScrambling} onClick={() => rubik.current?.rotate?.('U')} className="btn md:btn-sm btn-secondary">U</button>
+        <button aria-label="Rotate Up Inversed" disabled={isScrambling} onClick={() => rubik.current?.rotate?.('U', true)} className="btn md:btn-sm btn-secondary">U&apos;</button>
       </div>
       <div>
-        <button disabled={isScrambling} onClick={() => rubik.current?.rotate?.('F')} className="btn md:btn-sm btn-secondary">F</button>
-        <button disabled={isScrambling} onClick={() => rubik.current?.rotate?.('F', true)} className="btn md:btn-sm btn-secondary">F&apos;</button>
+        <button aria-label="Rotate Front" disabled={isScrambling} onClick={() => rubik.current?.rotate?.('F')} className="btn md:btn-sm btn-secondary">F</button>
+        <button aria-label="Rotate Front Inversed" disabled={isScrambling} onClick={() => rubik.current?.rotate?.('F', true)} className="btn md:btn-sm btn-secondary">F&apos;</button>
       </div>
       <div>
-        <button disabled={isScrambling} onClick={() => rubik.current?.rotate?.('L')} className="btn md:btn-sm btn-secondary">L</button>
-        <button disabled={isScrambling} onClick={() => rubik.current?.rotate?.('L', true)} className="btn md:btn-sm btn-secondary">L&apos;</button>
+        <button aria-label="Rotate Left" disabled={isScrambling} onClick={() => rubik.current?.rotate?.('L')} className="btn md:btn-sm btn-secondary">L</button>
+        <button aria-label="Rotate Left Inversed" disabled={isScrambling} onClick={() => rubik.current?.rotate?.('L', true)} className="btn md:btn-sm btn-secondary">L&apos;</button>
       </div>
       <div>
-        <button disabled={isScrambling} onClick={() => rubik.current?.rotate?.('D')} className="btn md:btn-sm btn-secondary">D</button>
-        <button disabled={isScrambling} onClick={() => rubik.current?.rotate?.('D', true)} className="btn md:btn-sm btn-secondary">D&apos;</button>
+        <button aria-label="Rotate Down" disabled={isScrambling} onClick={() => rubik.current?.rotate?.('D')} className="btn md:btn-sm btn-secondary">D</button>
+        <button aria-label="Rotate Down Inversed" disabled={isScrambling} onClick={() => rubik.current?.rotate?.('D', true)} className="btn md:btn-sm btn-secondary">D&apos;</button>
       </div>
       <div>
-        <button disabled={isScrambling} onClick={() => rubik.current?.rotate?.('B')} className="btn md:btn-sm btn-secondary">B</button>
-        <button disabled={isScrambling} onClick={() => rubik.current?.rotate?.('B', true)} className="btn md:btn-sm btn-secondary">B&apos;</button>
+        <button aria-label="Rotate Back" disabled={isScrambling} onClick={() => rubik.current?.rotate?.('B')} className="btn md:btn-sm btn-secondary">B</button>
+        <button aria-label="Rotate Back Inversed" disabled={isScrambling} onClick={() => rubik.current?.rotate?.('B', true)} className="btn md:btn-sm btn-secondary">B&apos;</button>
       </div>
       <div>
-        <button disabled={isScrambling} onClick={() => rubik.current?.rotate?.('R')} className="btn md:btn-sm btn-secondary">R</button>
-        <button disabled={isScrambling} onClick={() => rubik.current?.rotate?.('R', true)} className="btn md:btn-sm btn-secondary">R&apos;</button>
+        <button aria-label="Rotate Right" disabled={isScrambling} onClick={() => rubik.current?.rotate?.('R')} className="btn md:btn-sm btn-secondary">R</button>
+        <button aria-label="Rotate Right Inversed" disabled={isScrambling} onClick={() => rubik.current?.rotate?.('R', true)} className="btn md:btn-sm btn-secondary">R&apos;</button>
       </div>
     </div>
   </>)
