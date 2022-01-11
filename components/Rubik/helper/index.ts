@@ -20,7 +20,13 @@ export function rotateAroundWorldAxis(
 
 export function getBoxes(objects: Object3D[], face: keyof RubikRotation, except = false): Object3D[] {
   const rotationPieces = Object.keys(state)
-    .filter(position => position.includes(face))
+    .filter(position => {
+      if (face === 'M') {
+        return !position.includes('L') && !position.includes('R')
+      } else {
+        return position.includes(face)
+      }
+    })
     .map(key => state[key as keyof typeof state])
 
   return objects.filter(cube => rotationPieces.includes(cube.name))

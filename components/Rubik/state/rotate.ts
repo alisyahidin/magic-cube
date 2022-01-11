@@ -22,9 +22,17 @@ const piecesLocation = [
   'U-F', 'U-L', 'U-B', 'U-R',
   'F-L', 'L-B', 'B-R', 'R-F',
   'D-F', 'D-L', 'D-B', 'D-R',
+  'U-U', 'F-F', 'D-D', 'B-B', 'L-L', 'R-R'
 ]
 
+const nextRotationM = (piece: typeof piecesLocation[number], inversed = false) => {
+  const rotationFLow = ['F-F', 'U-F', 'U-U', 'U-B', 'B-B', 'D-B', 'D-D', 'D-F']
+  return (inversed ? rotationFLow.reverse() : rotationFLow)[(rotationFLow.indexOf(piece) + 2) % rotationFLow.length]
+}
+
 const getNextRotationPiece = (face: keyof RubikRotation, piece: typeof piecesLocation[number], inversed: boolean = false) => {
+  if (face === 'M') return nextRotationM(piece, inversed)
+
   const isEven = fwdRing.indexOf(face) % 2 === 0
   let fwdRingFace = isEven ? fwdRingOf(face) : [...fwdRingOf(face)].reverse()
   fwdRingFace = inversed ? [...fwdRingFace].reverse() : fwdRingFace
@@ -41,7 +49,13 @@ const getNextRotationPiece = (face: keyof RubikRotation, piece: typeof piecesLoc
 
 const rotate = (face: keyof RubikRotation, inversed: boolean = false) => {
   const mapRotationPieces = piecesLocation
-    .filter(item => item.includes(face))
+    .filter(item => {
+      if (face === 'M') {
+        return !item.includes('L') && !item.includes('R')
+      } else {
+        return item.includes(face)
+      }
+    })
     .map(current => [current, getNextRotationPiece(face, current, inversed)])
 
   const latestState = { ...state }

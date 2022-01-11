@@ -18,7 +18,7 @@ const random = (min: number, max: number): number => Math.floor(Math.random() * 
 
 type Face = { face: string, inversed: boolean }
 
-const faces: Face[] = ['U', 'F', 'L', 'D', 'B', 'R']
+const faces: Face[] = ['U', 'F', 'L', 'D', 'B', 'R', 'M']
   .flatMap(face => [{ face, inversed: false }, { face, inversed: true }])
 
 const Home: NextPage = () => {
@@ -130,6 +130,10 @@ const Home: NextPage = () => {
       <div>
         <button aria-label="Rotate Right" disabled={isScrambling} onClick={() => rubik.current?.rotate?.('R')} className="btn md:btn-sm btn-secondary">R</button>
         <button aria-label="Rotate Right Inversed" disabled={isScrambling} onClick={() => rubik.current?.rotate?.('R', true)} className="btn md:btn-sm btn-secondary">R&apos;</button>
+      </div>
+      <div>
+        <button aria-label="Rotate Middle" disabled={isScrambling} onClick={() => rubik.current?.rotate?.('M')} className="btn md:btn-sm btn-secondary">M</button>
+        <button aria-label="Rotate Middle Inversed" disabled={isScrambling} onClick={() => rubik.current?.rotate?.('M', true)} className="btn md:btn-sm btn-secondary">M&apos;</button>
       </div>
     </nav>
   </>)
