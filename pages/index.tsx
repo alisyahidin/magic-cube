@@ -141,8 +141,8 @@ const Home: NextPage = () => {
         <button aria-label="Rotate Standing Inversed" disabled={isScrambling} onClick={() => rubik.current?.rotate?.('S', true)} className="btn md:btn-sm btn-secondary">S&apos;</button>
       </div>
       <div>
-        <button aria-label="Rotate Standing" disabled={isScrambling} onClick={() => rubik.current?.rotate?.('E')} className="btn md:btn-sm btn-secondary">E</button>
-        <button aria-label="Rotate Standing Inversed" disabled={isScrambling} onClick={() => rubik.current?.rotate?.('E', true)} className="btn md:btn-sm btn-secondary">E&apos;</button>
+        <button aria-label="Rotate Equator" disabled={isScrambling} onClick={() => rubik.current?.rotate?.('E')} className="btn md:btn-sm btn-secondary">E</button>
+        <button aria-label="Rotate Equator Inversed" disabled={isScrambling} onClick={() => rubik.current?.rotate?.('E', true)} className="btn md:btn-sm btn-secondary">E&apos;</button>
       </div>
     </nav>
   </>)
