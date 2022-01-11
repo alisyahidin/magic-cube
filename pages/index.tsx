@@ -82,7 +82,7 @@ const Home: NextPage = () => {
       <meta name="twitter:description" content="Online 3D rubik cube 3x3" />
       <meta name="twitter:image" content="https://magic-cube.vercel.app/thumbnail.png" />
     </Head>
-    <div className={`${styles['button-action']} container justify-between items-center px-4 top-4 h-14`}>
+    <div id="top-nav" role="navigation" className={`${styles['button-action']} container justify-between items-center px-4 top-4 h-14`}>
       <div className="flex items-center">
         <button aria-label="Scrumble" onClick={scramble} className="btn md:btn-sm btn-secondary w-28">{isScrambling ? 'Stop' : 'Scramble'}</button>
         {isScrambling && <svg className="ml-4 stroke-secondary" height="30" width="30">
@@ -90,13 +90,13 @@ const Home: NextPage = () => {
         </svg>}
       </div>
       <div data-theme="dark" className="form-control">
-        <label className="flex items-center gap-4 font-mono">
+        <label id="label-toggle" className="flex items-center gap-4 font-mono">
           Labels
-          <input aria-label="Toggle show labels" type="checkbox" onChange={e => rubik.current?.showLabel?.(e.target.checked)} className="toggle toggle-secondary toggle-lg md:toggle-md" />
+          <input aria-labelledby="label-toggle" type="checkbox" onChange={e => rubik.current?.showLabel?.(e.target.checked)} className="toggle toggle-secondary toggle-lg md:toggle-md" />
         </label>
       </div>
     </div>
-    <div className="h-screen bg-gradient-radial from-gray-600 to-gray-900">
+    <main id="main" role="main" className="h-screen bg-gradient-radial from-gray-600 to-gray-900">
       <Canvas camera={{ position: [-2, 2, 3] }} style={{ height: '100%' }}>
         <OrbitControls enablePan={false} zoomSpeed={0.3} maxDistance={16} minDistance={12} />
         <ambientLight />
@@ -105,8 +105,8 @@ const Home: NextPage = () => {
           <Rubik position={[0, 1, 0]} ref={rubik} />
         </Suspense>
       </Canvas>
-    </div>
-    <div className={styles['button-action--bottom']}>
+    </main>
+    <nav id="bottom-nav" role="navigation" className={styles['button-action--bottom']}>
       <div>
         <button aria-label="Rotate Up" disabled={isScrambling} onClick={() => rubik.current?.rotate?.('U')} className="btn md:btn-sm btn-secondary">U</button>
         <button aria-label="Rotate Up Inversed" disabled={isScrambling} onClick={() => rubik.current?.rotate?.('U', true)} className="btn md:btn-sm btn-secondary">U&apos;</button>
@@ -131,7 +131,7 @@ const Home: NextPage = () => {
         <button aria-label="Rotate Right" disabled={isScrambling} onClick={() => rubik.current?.rotate?.('R')} className="btn md:btn-sm btn-secondary">R</button>
         <button aria-label="Rotate Right Inversed" disabled={isScrambling} onClick={() => rubik.current?.rotate?.('R', true)} className="btn md:btn-sm btn-secondary">R&apos;</button>
       </div>
-    </div>
+    </nav>
   </>)
 }
 
