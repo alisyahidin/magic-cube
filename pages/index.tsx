@@ -5,6 +5,7 @@ import Head from 'next/head'
 import { Suspense, useEffect, useRef, useState } from 'react'
 import Rubik, { RubikRef } from '../components/Rubik'
 import type { RubikRotation } from '../components/Rubik/entity/cube'
+import CubeEntity from '../components/Rubik/entity/cube'
 import styles from '../styles/rubik.module.css'
 
 const Loader = () => {
@@ -18,7 +19,7 @@ const random = (min: number, max: number): number => Math.floor(Math.random() * 
 
 type Face = { face: string, inversed: boolean }
 
-const faces: Face[] = ['U', 'F', 'L', 'D', 'B', 'R', 'M']
+const faces: Face[] = Object.keys(CubeEntity.rotation)
   .flatMap(face => [{ face, inversed: false }, { face, inversed: true }])
 
 const Home: NextPage = () => {
@@ -134,6 +135,14 @@ const Home: NextPage = () => {
       <div>
         <button aria-label="Rotate Middle" disabled={isScrambling} onClick={() => rubik.current?.rotate?.('M')} className="btn md:btn-sm btn-secondary">M</button>
         <button aria-label="Rotate Middle Inversed" disabled={isScrambling} onClick={() => rubik.current?.rotate?.('M', true)} className="btn md:btn-sm btn-secondary">M&apos;</button>
+      </div>
+      <div>
+        <button aria-label="Rotate Standing" disabled={isScrambling} onClick={() => rubik.current?.rotate?.('S')} className="btn md:btn-sm btn-secondary">S</button>
+        <button aria-label="Rotate Standing Inversed" disabled={isScrambling} onClick={() => rubik.current?.rotate?.('S', true)} className="btn md:btn-sm btn-secondary">S&apos;</button>
+      </div>
+      <div>
+        <button aria-label="Rotate Standing" disabled={isScrambling} onClick={() => rubik.current?.rotate?.('E')} className="btn md:btn-sm btn-secondary">E</button>
+        <button aria-label="Rotate Standing Inversed" disabled={isScrambling} onClick={() => rubik.current?.rotate?.('E', true)} className="btn md:btn-sm btn-secondary">E&apos;</button>
       </div>
     </nav>
   </>)

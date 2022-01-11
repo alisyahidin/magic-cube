@@ -23,6 +23,10 @@ export function getBoxes(objects: Object3D[], face: keyof RubikRotation, except 
     .filter(position => {
       if (face === 'M') {
         return !position.includes('L') && !position.includes('R')
+      } else if (face === 'S') {
+        return !position.includes('F') && !position.includes('B')
+      } else if (face === 'E') {
+        return !position.includes('U') && !position.includes('D')
       } else {
         return position.includes(face)
       }

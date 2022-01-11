@@ -8,8 +8,8 @@ export type RubikRotation = {
   R: { axis: THREE.Vector3 },
   L: { axis: THREE.Vector3 },
   M: { axis: THREE.Vector3 },
-  // S: { axis: THREE.Vector3 },
-  // E: { axis: THREE.Vector3 },
+  S: { axis: THREE.Vector3 },
+  E: { axis: THREE.Vector3 },
 }
 
 export default class CubeEntity {
@@ -32,7 +32,7 @@ export default class CubeEntity {
     R: { axis: CubeEntity.axis.X },
     L: { axis: CubeEntity.axis.X },
     M: { axis: CubeEntity.axis.X },
-    // S: { axis: CubeEntity.axis.Z },
-    // E: { axis: CubeEntity.axis.Y },
+    S: { axis: CubeEntity.axis.Z },
+    E: { axis: CubeEntity.axis.Y },
   }
 }
